@@ -4,20 +4,37 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 const app = express();
-const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
-app.use(cors({
+app.set('trust proxy', 1);
+
+// Strip accidental surrounding quotes that Render/Vercel dashboards sometimes add
+const rawClientUrl = (process.env.CLIENT_URL || '').replace(/^["']|["']$/g, '');
+
+const allowedOrigins = [
+  rawClientUrl,
+  'http://localhost:5173',
+  'http://localhost:5000',
+];
+
+console.log('CORS allowed origins:', allowedOrigins);
+
+const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests without an origin (like mobile apps or curl)
+    // Allow server-to-server / curl requests (no Origin header)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
-    return callback(new Error('Not allowed by CORS'));
+    console.warn('CORS rejected origin:', origin);
+    // Return false instead of throwing so the cors package still sends headers
+    return callback(null, false);
   },
   credentials: true,
   optionsSuccessStatus: 200,
-}));
-console.log('CORS allowed origins:', allowedOrigins);
+};
+
+// Handle preflight OPTIONS requests explicitly for all routes
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());

@@ -1,5 +1,5 @@
 import env from '../config/env.js';
-import User from '../Models/user.model.js';
+import User from '../models/user.model.js'
 import { asyncHandler } from '../utilities/asyncHandler.utility.js';
 import { genrateToken } from '../utilities/cookie.utility.js';
 import { errorHandler } from '../utilities/errorHandler.utility.js';

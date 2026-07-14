@@ -1,0 +1,48 @@
+client/
+│
+├── public/
+│
+├── src/
+│   ├── assets/
+│   │   └── icons/
+│
+│   ├── features/              # MVP FEATURES ONLY
+│   │
+│   │   ├── auth/              # Needed for login
+│   │   │   ├── Login.jsx✅register.jsx
+│   │   │   
+│   │
+│   │   ├── family/            # Family member selection
+│   │   │   ├── FamilyList.jsx✅
+│   │   │   ├── AddMember.jsx✅
+│   │   │
+│   │   ├── medicine/          # CORE MVP
+│   │   │   ├── MedicineList.jsx ✅    # Today / All medicines
+│   │   │   ├── AddMedicine.jsx ✅     # Add medicine form
+│   │   │   ├── MedicineCard.jsx     # Single medicine UI
+│   │   │   └── StopMedicine.jsx     # Stop action
+│
+│   ├── pages/                 # Route-level pages
+│   │   ├── LoginPage.jsx✅register.jsx
+│   │   └── DashboardPage.jsx✅ 
+│
+│   ├── layouts/
+│   │   ├── AuthLayout.jsx
+│   │   └── DashboardLayout.jsx
+│
+│   ├── routes/
+│   │   └── AppRoutes.jsx✅
+│
+│   ├── lib/
+│   │   └── apiClient.js       # Axios / fetch wrapper
+│
+│   ├── hooks/
+│   │   └── useAuth.js
+│
+│   ├── utils/
+│   │   └── dateUtils.js
+│
+│   ├── App.jsx
+│   └── main.jsx
+│
+└── package.json

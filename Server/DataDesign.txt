@@ -1,0 +1,178 @@
+🧠 DATABASE SCHEMA DESIGN (NO CODE)
+
+We will define for each model:
+
+Purpose
+
+Fields
+
+Relationships
+
+Why each field exists
+
+1️⃣ User Model (User)✅
+🎯 Purpose
+
+Represents the account owner.
+One user can manage multiple family members and medicines.
+
+🧾 Fields
+
+userId
+Unique identifier
+name
+Optional (user’s name)
+phone / email
+Login identifier
+isVerified
+Whether user is verified
+createdAt
+
+🔗 Relationships
+One User → Many FamilyMembers
+One User → Many Medicines
+
+🧠 Why this model matters
+
+This is the root entity.
+Every other model depends on User.
+
+2️⃣ FamilyMember Model (FamilyMember)✅
+🎯 Purpose
+
+Represents people who take medicines (Father, Mother, Self, etc.).
+
+🧾 Fields
+familyMemberId
+Unique identifier
+userId
+Owner (User)
+name
+Member name
+relation
+Father / Mother / Self / Other
+age (optional)
+createdAt
+
+🔗 Relationships
+
+One User → Many FamilyMembers
+
+One FamilyMember → Many Medicines
+
+🧠 Why this model matters
+
+Medicines belong to people, not directly to users.
+This avoids confusion when managing parents’ medicines.
+
+3️⃣ Medicine Model (Medicine) ⭐ CORE MODEL✅
+🎯 Purpose
+
+Represents a medicine course, not just a pill.
+
+🧾 Fields
+
+medicineId
+userId
+Owner
+familyMemberId
+Who takes this medicine
+medicineName
+dosePerDay
+e.g., 1, 2
+doseUnit
+mg / ml / tablet
+totalQuantity
+Total pills / ml purchased
+startDate
+endDate
+Auto-calculated
+alertBeforeDays
+Default: 5
+status
+active / completed / stopped
+createdAt
+
+🔗 Relationships
+
+One FamilyMember → Many Medicines
+One Medicine → Many DoseHistory
+One Medicine → Many Notifications
+
+🧠 Why this model matters
+
+This is the brain of your project:
+
+Stock calculation
+
+Reminder logic
+
+Safety checks
+
+If this schema is correct → project succeeds.
+
+4️⃣ DoseHistory Model (DoseHistory)
+🎯 Purpose
+
+Tracks daily medicine consumption.
+
+🧾 Fields
+
+doseHistoryId
+medicineId
+date
+Which day
+scheduledDose
+Expected dose count
+takenDose
+Actual dose taken
+status
+taken / missed / partial
+
+recordedAt
+
+🔗 Relationships
+
+One Medicine → Many DoseHistory
+
+🧠 Why this model matters
+
+This enables:
+
+Missed dose detection
+
+Safety alerts
+
+Health accountability
+
+Without this, app is just a reminder.
+
+5️⃣ Notification Model (Notification)
+🎯 Purpose
+
+Tracks what alerts were sent and why.
+
+🧾 Fields
+
+notificationId
+userId
+medicineId
+type
+stock_alert / missed_dose / reminder
+message
+channel
+SMS / Email / Push
+status
+sent / failed / pending
+sentAt
+
+🔗 Relationships
+
+One Medicine → Many Notifications
+One User → Many Notifications
+
+🧠 Why this model matters
+
+Prevents duplicate alerts
+Debugging reminders
+Future analytics

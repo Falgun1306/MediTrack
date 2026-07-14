@@ -1,0 +1,135 @@
+client/
+│
+├── public/
+│
+├── src/
+│   ├── assets/                # Images, icons, illustrations
+│
+│   ├── components/            # Pure reusable UI (no business logic)
+│   │   ├── Button/
+│   │   ├── Input/
+│   │   ├── Modal/
+│   │   ├── Loader/
+│   │   ├── Card/
+│   │   └── ProgressBar/
+│
+│   ├── features/              # Feature logic + UI
+│   │   ├── auth/
+│   │   │   ├── Login.jsx✅
+             |--- SignUp.jsx✅
+│   │   │   ├── authAPI.js
+│   │   │   └── auth.slice.js   # future-ready
+│   │
+│   │   ├── family/
+│   │   │   ├── FamilyList.jsx
+│   │   │   ├── AddMember.jsx
+│   │   │   └── familyAPI.js
+│   │
+│   │   ├── medicine/
+│   │   │   ├── MedicineList.jsx
+│   │   │   ├── AddMedicine.jsx
+│   │   │   ├── MedicineDetail.jsx
+│   │   │   └── medicineAPI.js
+│   │
+│   │   ├── reminders/
+│   │   │   ├── ReminderList.jsx
+│   │   │   └── reminderAPI.js
+│   │
+│   │   ├── history/
+│   │   │   └── History.jsx
+│   │
+│   ├── pages/                 # Route-level pages
+│   │   ├── LoginPage.jsx✅
+         |--- SignUp.jsx✅
+│   │   ├── DashboardPage.jsx
+│   │   ├── MedicinePage.jsx
+│   │   └── HistoryPage.jsx
+│
+│   ├── layouts/
+│   │   ├── AuthLayout.jsx
+│   │   └── DashboardLayout.jsx
+│
+│   ├── routes/
+│   │   └── AppRoutes.jsx
+│
+│   ├── lib/                    # shared helpers
+│   │   ├── apiClient.js
+│   │   └── notification.js
+│
+│   ├── hooks/
+│   │   ├── useAuth.js
+│   │   └── useDebounce.js
+│
+│   ├── utils/
+│   │   ├── dateUtils.js
+│   │   └── constants.js
+│
+│   ├── store/                  # optional global state
+│   │   └── index.js
+│
+│   ├── App.jsx
+│   └── main.jsx
+│
+└── package.json
+
+
+server/
+│
+├── src/
+│   ├── config/
+│   │   ├── db.js✅
+│   │   └── env.js
+│
+│   ├── models/
+│   │   ├── User.js✅
+│   │   ├── FamilyMember.js✅
+│   │   ├── Medicine.js✅
+│   │   ├── DoseHistory.js
+│   │   └── Notification.js
+│
+│   ├── routes/
+│   │   ├── auth.routes.js✅
+│   │   ├── family.routes.js✅
+│   │   ├── medicine.routes.js✅
+│   │   ├── reminder.routes.js
+│   │   └── history.routes.js
+│
+│   ├── controllers/
+│   │   ├── auth.controller.js✅
+│   │   ├── family.controller.js✅
+│   │   ├── medicine.controller.js✅
+│   │   ├── reminder.controller.js
+│   │   └── history.controller.js
+│
+│   ├── services/
+│   │   ├── stock.service.js
+│   │   ├── reminder.service.js
+│   │   ├── safety.service.js
+│   │   └── notification/
+│   │       ├── sms.service.js
+│   │       ├── email.service.js
+│   │       └── index.js
+│
+│   ├── schedulers/
+│   │   ├── reminder.cron.js
+│   │   ├── stockCheck.cron.js
+│   │   └── missedDose.cron.js
+│
+│   ├── validators/             # NEW
+│   │   ├── auth.validator.js
+│   │   ├── medicine.validator.js
+│   │   └── family.validator.js
+│
+│   ├── middlewares/
+│   │   ├── auth.middleware.js
+│   │   └── error.middleware.js
+│
+│   ├── utils/
+│   │   ├── dateUtils.js
+│   │   └── constants.js
+│
+│   ├── app.js --> routes and middleware implemented
+│   └── server.js --> server created
+│
+├── package.json
+└── .env 

@@ -83,12 +83,11 @@ export const login = asyncHandler(async(req, res, next)=>{
     const token = genrateToken(user?._id);     
 
     res.status(200)
-    .cookie("token", token,{
+    .cookie("token", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         expires: new Date(Date.now() + env.COOKIE_EXPIRES * 60 * 60 * 24 * 1000),
-        
     })
     .json({
         success: true,

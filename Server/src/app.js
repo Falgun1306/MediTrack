@@ -4,19 +4,32 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 const app = express();
-const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
-app.use(cors({
+
+// Normalize CLIENT_URL: strip trailing slash to match browser's Origin header
+const clientUrl = process.env.CLIENT_URL?.replace(/\/+$/, '');
+const allowedOrigins = [clientUrl, "http://localhost:5173"].filter(Boolean);
+
+const corsOptions = {
   origin: (origin, callback) => {
     // Allow requests without an origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
+    console.warn(`CORS blocked origin: "${origin}" | Allowed: ${JSON.stringify(allowedOrigins)}`);
     return callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   optionsSuccessStatus: 200,
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+
+// Explicitly handle preflight for all routes (Express v5 syntax)
+app.options('{*path}', cors(corsOptions));
+
 console.log('CORS allowed origins:', allowedOrigins);
 
 app.use(express.json());

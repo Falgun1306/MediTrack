@@ -22,15 +22,14 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: [
+  'Content-Type',
+  'Authorization',
+  'X-Requested-With'
+  ],
 };
 
 app.use(cors(corsOptions));
-
-// Explicitly handle preflight for all routes (Express v5 syntax)
-app.options('{*path}', cors(corsOptions));
-
-console.log('CORS allowed origins:', allowedOrigins);
 
 app.use(express.json());
 app.use(cookieParser());

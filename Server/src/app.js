@@ -33,6 +33,12 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
 
 //routes
 import userRouter from './routes/user.route.js'

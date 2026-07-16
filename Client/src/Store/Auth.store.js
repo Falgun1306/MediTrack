@@ -1,11 +1,10 @@
 import { create } from 'zustand'
 import { axiosInstance } from '../utilities/axiosInstance.js';
-import { persist } from 'zustand/middleware';
-import useFamilyStore from './FamilyMembers.store.js';
 import { toast } from 'react-toastify';
 
 const store = (set) => ({
   isAuthenticated: false,
+  isAuthLoading: true,
   setIsAuthenticated: (value) => {
     set({
       isAuthenticated: value
@@ -14,16 +13,19 @@ const store = (set) => ({
 
   user: null,
   checkAuth: async () => {
+    set({ isAuthLoading: true });
     try {
       const response = await axiosInstance.get('/user/me');
       set({
         isAuthenticated: true,
-        user: response.data.user
+        user: response.data.user,
+        isAuthLoading: false
       });
     } catch {
       set({
         isAuthenticated: false,
-        user: null
+        user: null,
+        isAuthLoading: false
       });
     }
   },
@@ -32,11 +34,11 @@ const store = (set) => ({
     try {
       const response = await axiosInstance.post('/user/logout');
 
-      // console.log(response);
-
       toast.success(response.data.message || "Logout successfully");
       set({
         isAuthenticated: false,
+        user: null,
+        isAuthLoading: false
       });
     }catch(error){
       toast.error(error);
@@ -44,6 +46,6 @@ const store = (set) => ({
   }
 })
 
-const AuthStore = create(persist(store));
+const AuthStore = create(store);
 
 export default AuthStore;

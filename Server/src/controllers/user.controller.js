@@ -57,9 +57,10 @@ export const register = asyncHandler(async (req, res, next) => {
         .status(201)
         .cookie("token", token, {// sending the token to decode
             httpOnly: true, //The cookie cannot be accessed from JavaScript (document.cookie).Protects against XSS (Cross-Site Scripting) attacks. Always true for auth cookies like JWTs.
-            sameSite: "lax",//Controls when the cookie is sent in cross-site requests.
-            expires: new Date(Date.now() + process.env.COOKIE_EXPIRES * 60 * 60 * 24 * 1000),
-            secure: false,
+            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+            expires: new Date(Date.now() + env.COOKIE_EXPIRES * 60 * 60 * 24 * 1000),
+            secure: env.NODE_ENV === "production",
+            path: '/',
         })
         .json({
             success: true,
@@ -94,6 +95,7 @@ export const login = asyncHandler(async (req, res, next) => {
             expires: new Date(
                 Date.now() + env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000
             ),
+            path: '/',
         })
         .json({
             success: true,
@@ -112,6 +114,7 @@ export const logout = asyncHandler(async (req, res, next) => {
             httpOnly: true,
             secure: env.NODE_ENV === "production",
             sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+            path: '/',
         })
         .json({
             success: true,

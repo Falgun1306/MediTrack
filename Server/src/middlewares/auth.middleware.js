@@ -8,9 +8,12 @@ export const isAuthenticated = asyncHandler(async(req, res, next) =>{
     if(!token){
         return next(new errorHandler("Session Expires", 401));
     }
-    
-    const tokenData = jwt.verify(token, process.env.JWT_SECRETE);
-    req.user = tokenData;
 
-    next();
+    try {
+        const tokenData = jwt.verify(token, process.env.JWT_SECRETE);
+        req.user = tokenData;
+        next();
+    } catch (error) {
+        return next(new errorHandler("Session Expires", 401));
+    }
 });

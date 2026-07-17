@@ -37,7 +37,7 @@ const Header = () => {
                     className="flex items-center gap-2 cursor-pointer font-bold text-xl group"
                     onClick={() => navigate("/")}
                 >
-                    <div className="p-2 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-400 text-white shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-shadow duration-300">
+                    <div className="p-2 rounded-xl bg-linear-to-br from-cyan-500 to-teal-400 text-white shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-shadow duration-300">
                         <GiMedicines className="text-xl" />
                     </div>
                     <span className="gradient-text">MediTrack</span>
@@ -94,7 +94,7 @@ const Header = () => {
                             className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300
                                 ${
                                     location.pathname === item.path
-                                        ? "bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-400 border border-cyan-500/20"
+                                        ? "bg-linear-to-r from-cyan-500/20 to-teal-500/20 text-cyan-400 border border-cyan-500/20"
                                         : "text-slate-300 hover:bg-white/5"
                                 }`}
                         >

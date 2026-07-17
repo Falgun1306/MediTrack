@@ -7,8 +7,13 @@ const store = (set) => ({
   isAuthLoading: true,
   setIsAuthenticated: (value) => {
     set({
-      isAuthenticated: value
+      isAuthenticated: value,
+      isAuthLoading: false
     })
+  },
+
+  setAuthUser: (user) => {
+    set({ user })
   },
 
   user: null,
@@ -31,17 +36,17 @@ const store = (set) => ({
   },
 
   logout: async () => {
+    set({
+      isAuthenticated: false,
+      user: null,
+      isAuthLoading: false
+    });
+
     try {
       const response = await axiosInstance.post('/user/logout');
-
       toast.success(response.data.message || "Logout successfully");
-      set({
-        isAuthenticated: false,
-        user: null,
-        isAuthLoading: false
-      });
-    }catch(error){
-      toast.error(error);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Logout failed");
     }
   }
 })

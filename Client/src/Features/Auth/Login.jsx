@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
     const navigate = useNavigate();
-    const { isAuthenticated, setIsAuthenticated } = AuthStore();
+    const { setIsAuthenticated, setAuthUser } = AuthStore();
     const fetchMember = useFamilyStore(state => state.fetchMember);
     const fetchAllMedicines = useMedicineStore(state => state.fetchAllMedicines);
     const fetchAllNotifications = useNotificationStore(state => state.fetchAllNotifications);
@@ -40,6 +40,7 @@ const Login = () => {
             fetchMember();
             fetchAllMedicines();
             fetchAllNotifications();
+            setAuthUser(response.data?.responseData?.user ?? null);
             setIsAuthenticated(true);
             navigate('/');
         } catch (error) {

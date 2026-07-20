@@ -7,24 +7,29 @@ export const axiosInstance = axios.create({
     withCredentials: true
 })
 
-// Global 401 interceptor — if any API call returns 401 (session expired / no cookie),
-// automatically clear local auth state and redirect to login.
-// This prevents the app from ever being in a "fake logged in" state.
+// Guard against multiple simultaneous 401 redirects
+let isLoggingOut = false;
+
+// Global 401 interceptor — auto-logout on expired/invalid session
 axiosInstance.interceptors.response.use(
     (response) => response,
-    (error) => {
-        if (error.response?.status === 401) {
-            // Dynamically import to avoid circular dependency with Auth.store
-            import('../Store/Auth.store.js').then(({ default: AuthStore }) => {
-                const state = AuthStore.getState();
-                // Only redirect if the user was previously authenticated
-                // (avoids infinite redirect loops on the login page)
-                if (state.isAuthenticated) {
-                    state.logout();
-                    window.location.href = '/login';
-                }
-            });
+    async (error) => {
+        if (error.response?.status === 401 && !isLoggingOut) {
+            // Dynamic import to avoid circular dependency (axiosInstance ↔ Auth.store)
+            const { default: AuthStore } = await import('../Store/Auth.store.js');
+            const state = AuthStore.getState();
+
+            // Only auto-logout if the user was previously authenticated
+            // (avoids infinite loops on login page where 401 is expected)
+            if (state.isAuthenticated) {
+                isLoggingOut = true;
+                await state.logout();
+                window.location.href = '/login';
+                // Reset flag after a short delay (page is reloading anyway)
+                setTimeout(() => { isLoggingOut = false; }, 2000);
+            }
         }
         return Promise.reject(error);
     }
-);
+);
+

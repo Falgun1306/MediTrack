@@ -1,19 +1,11 @@
 import { GiMedicines } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { axiosInstance } from "../../utilities/axiosInstance.js";
+import { useState } from "react";
 import AuthStore from "../../Store/Auth.store.js";
-import useFamilyStore from "../../Store/FamilyMembers.store.js";
-import useMedicineStore from "../../Store/Medicine.store.js";
-import useNotificationStore from "../../Store/Notification.store.js";
-import { toast } from "react-toastify";
 
 const Login = () => {
     const navigate = useNavigate();
-    const { setIsAuthenticated, setAuthUser } = AuthStore();
-    const fetchMember = useFamilyStore(state => state.fetchMember);
-    const fetchAllMedicines = useMedicineStore(state => state.fetchAllMedicines);
-    const fetchAllNotifications = useNotificationStore(state => state.fetchAllNotifications);
+    const login = AuthStore(state => state.login);
 
     const [loginData, setLoginData] = useState({
         email: '',
@@ -30,24 +22,12 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await axiosInstance.post('/user/login', {
-                email: loginData.email,
-                password: loginData.password
-            })
-
-            toast.success(response.data.message || "Login Successfull");
-            fetchMember();
-            fetchAllMedicines();
-            fetchAllNotifications();
-            setAuthUser(response.data?.responseData?.user ?? null);
-            setIsAuthenticated(true);
+        const result = await login(loginData.email, loginData.password);
+        if (result.success) {
             navigate('/');
-        } catch (error) {
-            console.log("something went wrong: ", error.message);
-            toast.error("email or password is wrong");
         }
     }
+
 
 
     return (

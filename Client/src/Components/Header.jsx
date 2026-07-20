@@ -5,19 +5,16 @@ import { FaUsers, FaCapsules, FaBell } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
 import AuthStore from "../Store/Auth.store";
 import { useNavigate, useLocation } from "react-router-dom";
-import useFamilyStore from "../Store/FamilyMembers.store";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const logout = AuthStore((state) => state.logout);
-    const setMembers = useFamilyStore((state) => state.setMembers);
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleLogout = async () => {
         await logout();
-        setMembers([]);
         navigate("/login");
     };
 

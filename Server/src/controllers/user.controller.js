@@ -5,20 +5,17 @@ import { genrateToken } from '../utilities/cookie.utility.js';
 import { errorHandler } from '../utilities/errorHandler.utility.js';
 import bcrypt from "bcryptjs";
 
-// Reusable cookie options — ensures secure flags are consistent across all endpoints
-const getCookieOptions = () => {
-    const isProduction = env.NODE_ENV === "production";
-    return {
-        httpOnly: true,
-        secure: isProduction,
-        sameSite: isProduction ? "none" : "lax",
-        path: '/',
-        maxAge: env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000, // days → milliseconds
-    };
-};
+// Cookie options — now same-origin via Vercel proxy, so sameSite:"lax" works everywhere
+const getCookieOptions = () => ({
+    httpOnly: true,
+    secure: env.NODE_ENV === "production",   // true on HTTPS (production), false on HTTP (localhost)
+    sameSite: "lax",                         // safe default — works for same-origin requests
+    path: '/',
+    maxAge: env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000, // days → ms
+});
 
-// Log at startup so you can verify the flags in Render logs
-console.log(`[Auth] NODE_ENV=${env.NODE_ENV}, cookie secure=${env.NODE_ENV === "production"}, sameSite=${env.NODE_ENV === "production" ? "none" : "lax"}`);
+// Startup log — verify in Render logs that NODE_ENV is correct
+console.log(`[Auth] NODE_ENV="${env.NODE_ENV}", secure=${env.NODE_ENV === "production"}`);
 
 export const getCurrentUser = asyncHandler(async (req, res, next) => {
 
@@ -108,15 +105,19 @@ export const login = asyncHandler(async (req, res, next) => {
 });
 
 export const logout = asyncHandler(async (req, res, next) => {
-    res
-        .status(200)
-        .cookie("token", "", {
-            ...getCookieOptions(),
-            maxAge: 0, // Override maxAge to expire immediately
-        })
-        .json({
-            success: true,
-            message: "logout successful!"
-        })
-})
+    // clearCookie is the correct Express API for removing cookies
+    // It MUST use the same path and domain options as when the cookie was set
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: '/',
+    });
+
+    res.status(200).json({
+        success: true,
+        message: "logout successful!"
+    });
+});
+
 

@@ -5,21 +5,44 @@ import useFamilyStore from './FamilyMembers.store.js';
 import useMedicineStore from './Medicine.store.js';
 import useNotificationStore from './Notification.store.js';
 
-const store = (set) => ({
+// Helper: reset all data stores to initial state
+const clearAllStores = () => {
+  useFamilyStore.setState({
+    members: [],
+    totalMembers: 0,
+    memberId: null,
+    memberName: '',
+    showAddMember: false,
+  });
+
+  useMedicineStore.setState({
+    medicines: [],
+    AllMedicines: [],
+    showAddMedicine: false,
+    memberIdForMedicine: null,
+    memberNameForMedicine: null,
+  });
+
+  useNotificationStore.setState({
+    notifications: [],
+  });
+
+  // Clean up any leftover localStorage from old persist middleware
+  try {
+    localStorage.removeItem('medicine-storage');
+    localStorage.removeItem('notification-storage');
+    localStorage.removeItem('family-storage');
+  } catch {
+    // localStorage may not be available
+  }
+};
+
+const AuthStore = create((set, get) => ({
   isAuthenticated: false,
   isAuthLoading: true,
-  setIsAuthenticated: (value) => {
-    set({
-      isAuthenticated: value,
-      isAuthLoading: false
-    })
-  },
-
-  setAuthUser: (user) => {
-    set({ user })
-  },
-
   user: null,
+
+  // Called on every page load (App.jsx useEffect) — server is the source of truth
   checkAuth: async () => {
     set({ isAuthLoading: true });
     try {
@@ -27,56 +50,67 @@ const store = (set) => ({
       set({
         isAuthenticated: true,
         user: response.data.user,
-        isAuthLoading: false
+        isAuthLoading: false,
       });
     } catch {
+      // Cookie missing or invalid — clear everything
       set({
         isAuthenticated: false,
         user: null,
-        isAuthLoading: false
+        isAuthLoading: false,
       });
+      clearAllStores();
     }
   },
 
+  // Centralized login — handles API call, state, and data fetching in one place
+  login: async (email, password) => {
+    try {
+      const response = await axiosInstance.post('/user/login', { email, password });
+
+      // Set auth state from server response
+      set({
+        isAuthenticated: true,
+        user: response.data?.responseData?.user ?? null,
+        isAuthLoading: false,
+      });
+
+      // Fetch user's data after successful login
+      useFamilyStore.getState().fetchMember();
+      useMedicineStore.getState().fetchAllMedicines();
+      useNotificationStore.getState().fetchAllNotifications();
+
+      toast.success(response.data.message || "Login Successful");
+      return { success: true };
+    } catch (error) {
+      set({ isAuthenticated: false, user: null, isAuthLoading: false });
+      toast.error(error?.response?.data?.message || "Email or password is wrong");
+      return { success: false };
+    }
+  },
+
+  // Centralized logout — clears everything, then tells backend
   logout: async () => {
     // 1. Clear auth state immediately (optimistic)
     set({
       isAuthenticated: false,
       user: null,
-      isAuthLoading: false
+      isAuthLoading: false,
     });
 
-    // 2. Reset all other stores to prevent stale data
-    useFamilyStore.getState().setMembers([]);
-    useFamilyStore.getState().setMemberId(null);
-    useFamilyStore.getState().setMemberName('');
+    // 2. Reset all other stores
+    clearAllStores();
 
-    useMedicineStore.getState().setMedicines([]);
-    useMedicineStore.getState().setAllMedicines([]);
-    useMedicineStore.getState().setMemberIdForMedicine(null);
-    useMedicineStore.getState().setMemberNameForMedicine(null);
-
-    useNotificationStore.setState({ notifications: [] });
-
-    // 3. Clean up any leftover localStorage keys from old persist middleware
-    try {
-      localStorage.removeItem('medicine-storage');
-      localStorage.removeItem('notification-storage');
-      localStorage.removeItem('family-storage');
-    } catch {
-      // localStorage may not be available
-    }
-
-    // 4. Call backend to clear the HTTP-only cookie
+    // 3. Tell backend to clear the HTTP-only cookie
     try {
       const response = await axiosInstance.post('/user/logout');
       toast.success(response.data.message || "Logout successfully");
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Logout failed");
+      // Even if backend call fails, local state is already cleared
+      console.warn("Logout API call failed:", error?.message);
     }
-  }
-})
+  },
+}));
 
-const AuthStore = create(store);
-
-export default AuthStore;
+export default AuthStore;
+

@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
 import { axiosInstance } from '../utilities/axiosInstance';
 import useUIStore from './UI.store';
 
@@ -61,9 +60,6 @@ const store = (set) => ({
 
 });
 
-const useFamilyStore = create(store, {
-        name: 'family-storage',
-       }
-    );
+const useFamilyStore = create(store);
 
-export default useFamilyStore
+export default useFamilyStore

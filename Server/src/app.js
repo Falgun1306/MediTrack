@@ -47,6 +47,10 @@ import medicineRouter from './routes/medicine.route.js'
 import smstest from './routes/smstest.route.js'
 import notificationRouter from './routes/notifications.route.js'
 
+app.get("/api/v1/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/family-members', familyRouter);
 app.use('/api/v1/medicines', medicineRouter);

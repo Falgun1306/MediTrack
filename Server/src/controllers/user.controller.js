@@ -5,6 +5,21 @@ import { genrateToken } from '../utilities/cookie.utility.js';
 import { errorHandler } from '../utilities/errorHandler.utility.js';
 import bcrypt from "bcryptjs";
 
+// Reusable cookie options — ensures secure flags are consistent across all endpoints
+const getCookieOptions = () => {
+    const isProduction = env.NODE_ENV === "production";
+    return {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        path: '/',
+        maxAge: env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000, // days → milliseconds
+    };
+};
+
+// Log at startup so you can verify the flags in Render logs
+console.log(`[Auth] NODE_ENV=${env.NODE_ENV}, cookie secure=${env.NODE_ENV === "production"}, sameSite=${env.NODE_ENV === "production" ? "none" : "lax"}`);
+
 export const getCurrentUser = asyncHandler(async (req, res, next) => {
 
     const user = await User.findById(req.user._id).select("-password");
@@ -55,13 +70,7 @@ export const register = asyncHandler(async (req, res, next) => {
 
     res
         .status(201)
-        .cookie("token", token, {// sending the token to decode
-            httpOnly: true, //The cookie cannot be accessed from JavaScript (document.cookie).Protects against XSS (Cross-Site Scripting) attacks. Always true for auth cookies like JWTs.
-            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
-            expires: new Date(Date.now() + env.COOKIE_EXPIRES * 60 * 60 * 24 * 1000),
-            secure: env.NODE_ENV === "production",
-            path: '/',
-        })
+        .cookie("token", token, getCookieOptions())
         .json({
             success: true,
             message: "User created successfully",
@@ -88,15 +97,7 @@ export const login = asyncHandler(async (req, res, next) => {
     const token = genrateToken(user?._id);
 
     res.status(200)
-        .cookie("token", token, {
-            httpOnly: true,
-            secure: env.NODE_ENV === "production",
-            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
-            expires: new Date(
-                Date.now() + env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-            ),
-            path: '/',
-        })
+        .cookie("token", token, getCookieOptions())
         .json({
             success: true,
             responseData: {
@@ -110,14 +111,12 @@ export const logout = asyncHandler(async (req, res, next) => {
     res
         .status(200)
         .cookie("token", "", {
-            expires: new Date(0),
-            httpOnly: true,
-            secure: env.NODE_ENV === "production",
-            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
-            path: '/',
+            ...getCookieOptions(),
+            maxAge: 0, // Override maxAge to expire immediately
         })
         .json({
             success: true,
             message: "logout successful!"
         })
 })
+

@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { axiosInstance } from "../utilities/axiosInstance"
-import { persist } from "zustand/middleware";
 import useUIStore from "./UI.store";
 
 const store = (set)=>({
@@ -33,6 +32,6 @@ const store = (set)=>({
     }
 })
 
-const useNotificationStore = create(persist(store));
+const useNotificationStore = create(store);
 
-export default useNotificationStore;
+export default useNotificationStore;

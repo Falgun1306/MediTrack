@@ -1,5 +1,4 @@
 import {create} from "zustand";
-import { persist } from "zustand/middleware";
 import { axiosInstance } from "../utilities/axiosInstance";
 import useUIStore from "./UI.store";
 import useFamilyStore from "./FamilyMembers.store";
@@ -72,6 +71,6 @@ const store = (set)=>({
 
 });
 
-const useMedicineStore = create(persist(store));
+const useMedicineStore = create(store);
 
-export default useMedicineStore;
+export default useMedicineStore;

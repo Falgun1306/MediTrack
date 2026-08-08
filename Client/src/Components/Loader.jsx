@@ -21,9 +21,9 @@ const Loader = ({ fullScreen = true }) => {
                     "
                     style={{
                         border: '3px solid transparent',
-                        borderTop: '3px solid #06b6d4',
-                        borderRight: '3px solid #22d3ee',
-                        boxShadow: '0 0 15px rgba(6, 182, 212, 0.3)',
+                        borderTop: '3px solid #00607e',
+                        borderRight: '3px solid #0d7a9e',
+                        boxShadow: '0 0 15px rgba(0, 96, 126, 0.25)',
                     }}
                 ></div>
 
@@ -39,19 +39,19 @@ const Loader = ({ fullScreen = true }) => {
                     "
                     style={{
                         border: '3px solid transparent',
-                        borderTop: '3px solid #10b981',
-                        borderLeft: '3px solid #059669',
+                        borderTop: '3px solid #006e1c',
+                        borderLeft: '3px solid #7ddc7a',
                         animationDirection: 'reverse',
                         animationDuration: '0.8s',
                     }}
                 ></div>
 
                 {/* Center Dot */}
-                <div className="absolute w-3 h-3 rounded-full bg-gradient-to-br from-cyan-400 to-teal-400 animate-pulseGlow"></div>
+                <div className="absolute w-3 h-3 rounded-full bg-[#00607e] animate-pulseGlow"></div>
             </div>
 
-            <p className="text-sm font-medium text-slate-400 animate-shimmer">
-                Loading...
+            <p className="text-sm font-semibold text-[#3f484d] animate-shimmer">
+                Loading MediTrack...
             </p>
         </div>
     );

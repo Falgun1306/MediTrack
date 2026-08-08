@@ -17,7 +17,6 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
 
-  // Parse existing dose times if available
   const parseDoseTimes = () => {
     if (selectedMedicine?.doseAtime) {
       const parts = selectedMedicine.doseAtime.split(", ").map(t => {
@@ -62,7 +61,6 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
       return toast.error("Number of doses must be between 1 and 10");
     }
 
-    // Adjust dose time slots if number changed
     const currentTimes = [...doseTimes];
     if (numDoses > currentTimes.length) {
       for (let i = currentTimes.length; i < numDoses; i++) {
@@ -86,13 +84,11 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    // Validate all timings are filled
     const allFilled = doseTimes.every(dt => dt.time.trim() !== "");
     if (!allFilled) {
       return toast.error("Please enter all dose timings");
     }
 
-    // Format timings as "HH:MM AM/PM"
     const formattedTimes = doseTimes.map(dt => `${dt.time} ${dt.period}`);
     const doseAtime = formattedTimes.join(", ");
 
@@ -130,7 +126,10 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
   return (
     <div className="modal-overlay">
 
-      <div className="modal-content animate-fadeInScale" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
+      <div className="modal-content animate-fadeInScale overflow-hidden pt-7" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
+
+        {/* Top Accent Line */}
+        <div className="absolute top-0 left-0 w-full h-2 bg-[#00607e]"></div>
 
         {/* Close Button */}
         <button
@@ -142,22 +141,22 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
 
         {/* Step Indicator */}
         <div className="flex items-center justify-center gap-3 mb-6">
-          <div className={`flex items-center gap-2 text-sm font-medium ${step === 1 ? 'text-cyan-400' : 'text-slate-500'}`}>
-            <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
+          <div className={`flex items-center gap-2 text-xs font-semibold ${step === 1 ? 'text-[#00607e]' : 'text-[#6f787e]'}`}>
+            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 1 
-                ? 'bg-gradient-to-br from-cyan-500 to-teal-400 text-white' 
-                : 'bg-emerald-500/20 text-emerald-400'
+                ? 'bg-[#00607e] text-white' 
+                : 'bg-[#eef8ff] text-[#00607e]'
             }`}>
               {step > 1 ? '✓' : '1'}
             </span>
             Details
           </div>
-          <div className="w-8 h-px bg-slate-600"></div>
-          <div className={`flex items-center gap-2 text-sm font-medium ${step === 2 ? 'text-cyan-400' : 'text-slate-500'}`}>
-            <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
+          <div className="w-8 h-px bg-[#bec8ce]"></div>
+          <div className={`flex items-center gap-2 text-xs font-semibold ${step === 2 ? 'text-[#00607e]' : 'text-[#6f787e]'}`}>
+            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 2 
-                ? 'bg-gradient-to-br from-cyan-500 to-teal-400 text-white' 
-                : 'bg-slate-700 text-slate-400'
+                ? 'bg-[#00607e] text-white' 
+                : 'bg-[#f0f3ff] text-[#6f787e]'
             }`}>2</span>
             Timings
           </div>
@@ -166,27 +165,27 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
         {/* Step 1: Medicine Details */}
         {step === 1 && (
           <>
-            <h2 className="text-2xl font-bold text-center text-slate-100 mb-6">
-              Update Medicine
+            <h2 className="text-xl font-bold font-headline text-center text-[#111c2d] mb-6">
+              Update Medication
             </h2>
 
             <form onSubmit={handleNextStep} className="space-y-4">
               {/* Medicine Name */}
               <div>
-                <label className="block text-sm font-medium text-slate-400 mb-2">Medicine Name</label>
+                <label className="block text-xs font-semibold text-[#3f484d] mb-1.5 uppercase tracking-wider">Medicine Name</label>
                 <input
                   type="text"
                   name="medicineName"
-                  placeholder="e.g. Paracetamol"
+                  placeholder="e.g. Paracetamol 500mg"
                   value={medicineData.medicineName}
                   onChange={handleInputChange}
-                  className="input-dark"
+                  className="input-stitch"
                 />
               </div>
 
               {/* Number of Doses */}
               <div>
-                <label className="block text-sm font-medium text-slate-400 mb-2">Number of Doses Per Day</label>
+                <label className="block text-xs font-semibold text-[#3f484d] mb-1.5 uppercase tracking-wider">Doses Per Day</label>
                 <input
                   type="number"
                   name="NumberOfDose"
@@ -195,58 +194,59 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
                   max="10"
                   value={medicineData.NumberOfDose}
                   onChange={handleInputChange}
-                  className="input-dark"
+                  className="input-stitch"
                 />
               </div>
 
               {/* Dose Unit */}
               <div>
-                <label className="block text-sm font-medium text-slate-400 mb-2">Dose Unit</label>
+                <label className="block text-xs font-semibold text-[#3f484d] mb-1.5 uppercase tracking-wider">Dose Unit</label>
                 <select
                   name="doseUnit"
                   value={medicineData.doseUnit}
                   onChange={handleInputChange}
-                  className="input-dark"
+                  className="input-stitch"
                 >
                   <option value="">Select Dose Unit</option>
                   <option value="mg">mg</option>
                   <option value="ml">ml</option>
                   <option value="tablet">tablet</option>
+                  <option value="capsule">capsule</option>
                 </select>
               </div>
 
               {/* Total Quantity */}
               <div>
-                <label className="block text-sm font-medium text-slate-400 mb-2">Total Quantity</label>
+                <label className="block text-xs font-semibold text-[#3f484d] mb-1.5 uppercase tracking-wider">Total Quantity</label>
                 <input
                   type="number"
                   name="totalQuantity"
                   placeholder="e.g. 30"
                   value={medicineData.totalQuantity}
                   onChange={handleInputChange}
-                  className="input-dark"
+                  className="input-stitch"
                 />
               </div>
 
               {/* Alert Before Days */}
               <div>
-                <label className="block text-sm font-medium text-slate-400 mb-2">Alert Before (Days)</label>
+                <label className="block text-xs font-semibold text-[#3f484d] mb-1.5 uppercase tracking-wider">Refill Alert (Days in advance)</label>
                 <input
                   type="number"
                   name="alertBeforeDays"
                   placeholder="e.g. 5"
                   value={medicineData.alertBeforeDays}
                   onChange={handleInputChange}
-                  className="input-dark"
+                  className="input-stitch"
                 />
               </div>
 
               {/* Next Button */}
               <button
                 type="submit"
-                className="btn-primary w-full py-3 rounded-xl text-sm tracking-wide"
+                className="btn-primary w-full py-3 rounded-xl text-sm font-semibold tracking-wide mt-2"
               >
-                Next → Set Timings
+                Next: Set Timings →
               </button>
             </form>
           </>
@@ -255,34 +255,34 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
         {/* Step 2: Dose Timings */}
         {step === 2 && (
           <>
-            <h2 className="text-2xl font-bold text-center text-slate-100 mb-2">
+            <h2 className="text-xl font-bold font-headline text-center text-[#111c2d] mb-2">
               Update Dose Timings
             </h2>
-            <p className="text-sm text-slate-400 text-center mb-6">
-              Enter timing for each dose of <span className="text-cyan-400 font-medium">{medicineData.medicineName}</span>
+            <p className="text-xs text-[#3f484d] text-center mb-6">
+              Enter timing for each dose of <span className="text-[#00607e] font-semibold">{medicineData.medicineName}</span>
             </p>
 
             <form onSubmit={handleUpdate} className="space-y-4">
               {doseTimes.map((dt, index) => (
-                <div key={index} className="list-card p-4">
-                  <label className="block text-sm font-medium text-slate-400 mb-3">
-                    Dose {index + 1} Timing
+                <div key={index} className="list-card p-3.5">
+                  <label className="block text-xs font-semibold text-[#3f484d] mb-2 uppercase tracking-wider">
+                    Dose {index + 1} Schedule
                   </label>
-                  <div className="flex gap-3">
+                  <div className="flex gap-2.5">
                     <input
                       type="text"
                       placeholder="e.g. 08:00"
                       value={dt.time}
                       onChange={(e) => handleTimeChange(index, 'time', e.target.value)}
-                      className="input-dark flex-1"
+                      className="input-stitch flex-1"
                       pattern="[0-9]{1,2}:[0-9]{2}"
                       title="Enter time in HH:MM format"
                     />
                     <select
                       value={dt.period}
                       onChange={(e) => handleTimeChange(index, 'period', e.target.value)}
-                      className="input-dark"
-                      style={{ width: '5rem', flexShrink: 0 }}
+                      className="input-stitch"
+                      style={{ width: '5.5rem', flexShrink: 0 }}
                     >
                       <option value="AM">AM</option>
                       <option value="PM">PM</option>
@@ -296,7 +296,7 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="btn-ghost flex-1 py-3 rounded-xl text-sm"
+                  className="btn-ghost flex-1 py-3 rounded-xl text-sm font-medium"
                 >
                   ← Back
                 </button>
@@ -305,9 +305,9 @@ const EditMedicine = ({ selectedMedicine, setshowEditMedicine }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-primary flex-1 py-3 rounded-xl text-sm tracking-wide disabled:opacity-60"
+                  className="btn-primary flex-1 py-3 rounded-xl text-sm font-semibold tracking-wide disabled:opacity-60"
                 >
-                  {loading ? "Updating..." : "Update Medicine"}
+                  {loading ? "Updating..." : "Update Medication"}
                 </button>
               </div>
             </form>

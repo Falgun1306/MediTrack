@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import Header from '../Components/Header'
+import React, { useEffect, useState } from 'react';
+import Header from '../Components/Header';
 import useNotificationStore from '../Store/Notification.store';
 import useUIStore from '../Store/UI.store';
 import Loader from '../Components/Loader';
@@ -18,12 +18,12 @@ const NotificationPage = () => {
     const handleFilter = async (memberId) => {
         await fetchNotificationsByMember(memberId);
         setSelectedMemberId(memberId);
-    }
+    };
 
     const handleDefaultFilter = async () => {
         await fetchAllNotifications();
         setSelectedMemberId('all');
-    }
+    };
 
     useEffect(() => {
         fetchAllNotifications();
@@ -31,43 +31,46 @@ const NotificationPage = () => {
     }, []);
 
     return (
-        <div className="page-bg">
+        <div className="page-bg max-w-7xl mx-auto">
             <Header />
 
             {isLoading ? (
                 <Loader />
             ) : (
-                <div className="max-w-6xl mx-auto mt-6 glass-card-static p-4 sm:p-6 animate-fadeIn">
+                <div className="mt-6 glass-card-static p-4 sm:p-6 animate-fadeIn">
 
                     {/* Header Section */}
-                    <div className="flex flex-col gap-4 mb-6">
+                    <div className="flex flex-col gap-4 mb-6 pb-4 border-b border-[#bec8ce]/30">
 
-                        <h2 className="text-lg sm:text-xl font-semibold text-slate-100">
-                            Notifications
-                        </h2>
+                        <div>
+                            <h2 className="text-xl font-headline font-bold text-[#111c2d]">
+                                Notification & Alert Center
+                            </h2>
+                            <p className="text-sm text-[#3f484d] mt-0.5">
+                                Refill reminders and dose updates
+                            </p>
+                        </div>
 
                         {/* Filter Buttons */}
                         <div className="flex gap-2 overflow-x-auto pb-2 scroll-none">
 
                             <button
-                                className={`btn-pill whitespace-nowrap ${
-                                    selectedMemberId === "all"
+                                className={`btn-pill whitespace-nowrap ${selectedMemberId === "all"
                                         ? "btn-pill-active"
                                         : "btn-pill-inactive"
-                                }`}
+                                    }`}
                                 onClick={handleDefaultFilter}
                             >
-                                All
+                                All Notifications
                             </button>
 
                             {members.map((member) => (
                                 <button
                                     key={member._id}
-                                    className={`btn-pill whitespace-nowrap ${
-                                        selectedMemberId === member._id
+                                    className={`btn-pill whitespace-nowrap ${selectedMemberId === member._id
                                             ? "btn-pill-active"
                                             : "btn-pill-inactive"
-                                    }`}
+                                        }`}
                                     onClick={() => handleFilter(member._id)}
                                 >
                                     {member.name}
@@ -79,9 +82,12 @@ const NotificationPage = () => {
 
                     {/* Empty State */}
                     {notifications.length === 0 ? (
-                        <div className="text-center text-slate-400 py-16 animate-fadeIn">
-                            <div className="text-4xl mb-3">🔔</div>
-                            <p className="font-medium">No notifications found.</p>
+                        <div className="text-center text-[#6f787e] py-16 animate-fadeIn">
+                            <div className="w-16 h-16 rounded-full bg-[#fff5ed] text-[#7d4e00] flex items-center justify-center mx-auto mb-3">
+                                <span className="material-symbols-outlined text-3xl">notifications</span>
+                            </div>
+                            <p className="font-semibold text-[#111c2d]">No notifications found.</p>
+                            <p className="text-sm text-[#6f787e] mt-1">You are all caught up with your medicine alerts.</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -104,42 +110,39 @@ const NotificationPage = () => {
                                         style={{ animationDelay: `${index * 0.05}s`, opacity: 0 }}
                                     >
                                         {/* Left Info Section */}
-                                        <div className="flex flex-col gap-1">
+                                        <div className="flex items-start gap-3.5">
+                                            <div className="w-10 h-10 rounded-xl bg-[#fff5ed] text-[#7d4e00] flex items-center justify-center shrink-0 mt-0.5">
+                                                <span className="material-symbols-outlined text-xl">notifications_active</span>
+                                            </div>
 
-                                            <p className="text-xs text-slate-500 uppercase tracking-wider">
-                                                Member
-                                            </p>
-                                            <p className="font-semibold text-slate-100">
-                                                {notification.memberName}
-                                            </p>
-
-                                            <p className="text-xs text-slate-500 mt-2 uppercase tracking-wider">
-                                                Medicine
-                                            </p>
-                                            <p className="font-medium text-cyan-400">
-                                                {notification.medicineName}
-                                            </p>
-                                        </div>
-
-                                        {/* Message */}
-                                        <div className="text-sm text-slate-300 font-medium lg:max-w-md">
-                                            {notification.message}
+                                            <div>
+                                                <div className="flex items-center gap-2 flex-wrap">
+                                                    <span className="font-bold font-headline text-[#111c2d] text-base">
+                                                        {notification.memberName}
+                                                    </span>
+                                                    <span className="text-xs text-[#00607e] font-semibold bg-[#eef8ff] px-2 py-0.5 rounded-full border border-[#0d7a9e]/20">
+                                                        {notification.medicineName}
+                                                    </span>
+                                                </div>
+                                                <p className="text-sm text-[#3f484d] font-medium mt-1">
+                                                    {notification.message}
+                                                </p>
+                                            </div>
                                         </div>
 
                                         {/* Status + Date */}
-                                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 lg:gap-6">
+                                        <div className="flex flex-row sm:items-center justify-between sm:justify-end gap-3 lg:gap-6 shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-[#bec8ce]/20">
 
                                             <span
-                                                className={`badge ${
-                                                    isReceived
+                                                className={`badge uppercase text-[10px] font-bold tracking-wider ${isReceived
                                                         ? "badge-success"
                                                         : "badge-danger"
-                                                }`}
+                                                    }`}
                                             >
-                                                {isReceived ? "Received" : "Not Received"}
+                                                {isReceived ? "Sent" : "Pending"}
                                             </span>
 
-                                            <span className="text-sm text-slate-400">
+                                            <span className="text-xs font-medium text-[#6f787e]">
                                                 {formatted}
                                             </span>
 
@@ -155,6 +158,6 @@ const NotificationPage = () => {
         </div>
     );
 
-}
+};
 
-export default NotificationPage
+export default NotificationPage;

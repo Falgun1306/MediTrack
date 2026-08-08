@@ -18,13 +18,13 @@ const FamilyPage = () => {
   }, []);
 
   return (
-    <div className="page-bg">
+    <div className="page-bg max-w-7xl mx-auto">
 
       {/* Header */}
       <Header />
 
       {/* Page Container */}
-      <div className="max-w-6xl mx-auto mt-6 animate-fadeIn">
+      <div className="mt-6 animate-fadeIn">
         <FamilyList
           setMember={setMember}
           setShowEditMember={setShowEditMember}

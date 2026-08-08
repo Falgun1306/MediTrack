@@ -11,7 +11,7 @@ function App() {
     checkAuth();
   }, []);
   return (
-    <div className='text-slate-100'>
+    <div className='text-stone-100'>
       <Outlet />
       <ToastContainer
         position="top-right"

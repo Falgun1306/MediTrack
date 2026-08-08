@@ -27,8 +27,9 @@ const clearAllStores = () => {
     notifications: [],
   });
 
-  // Clean up any leftover localStorage from old persist middleware
+  // Clean up any leftover localStorage & auth token
   try {
+    localStorage.removeItem('meditrack_token');
     localStorage.removeItem('medicine-storage');
     localStorage.removeItem('notification-storage');
     localStorage.removeItem('family-storage');
@@ -53,7 +54,7 @@ const AuthStore = create((set, get) => ({
         isAuthLoading: false,
       });
     } catch {
-      // Cookie missing or invalid — clear everything
+      // Cookie/token missing or invalid — clear everything
       set({
         isAuthenticated: false,
         user: null,
@@ -63,10 +64,20 @@ const AuthStore = create((set, get) => ({
     }
   },
 
-  // Centralized login — handles API call, state, and data fetching in one place
+  // Centralized login — handles API call, state, token storage, and data fetching
   login: async (email, password) => {
     try {
       const response = await axiosInstance.post('/user/login', { email, password });
+
+      // Save token in localStorage for cross-origin backup (Vercel <-> Backend)
+      const token = response.data?.token || response.data?.responseData?.token;
+      if (token) {
+        try {
+          localStorage.setItem('meditrack_token', token);
+        } catch (err) {
+          console.warn("Could not save token to localStorage", err);
+        }
+      }
 
       // Set auth state from server response
       set({
@@ -91,14 +102,14 @@ const AuthStore = create((set, get) => ({
 
   // Centralized logout — clears everything, then tells backend
   logout: async () => {
-    // 1. Clear auth state immediately (optimistic)
+    // 1. Clear auth state & localStorage token immediately
     set({
       isAuthenticated: false,
       user: null,
       isAuthLoading: false,
     });
 
-    // 2. Reset all other stores
+    // 2. Reset all other stores and remove local token
     clearAllStores();
 
     // 3. Tell backend to clear the HTTP-only cookie

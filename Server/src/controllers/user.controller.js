@@ -5,17 +5,19 @@ import { genrateToken } from '../utilities/cookie.utility.js';
 import { errorHandler } from '../utilities/errorHandler.utility.js';
 import bcrypt from "bcryptjs";
 
-// Cookie options — now same-origin via Vercel proxy, so sameSite:"lax" works everywhere
+// Cookie options — sameSite: "none" in production for cross-site Vercel deployments, "lax" in development
+const isProduction = env.NODE_ENV === "production";
+
 const getCookieOptions = () => ({
     httpOnly: true,
-    secure: env.NODE_ENV === "production",   // true on HTTPS (production), false on HTTP (localhost)
-    sameSite: "lax",                         // safe default — works for same-origin requests
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     path: '/',
     maxAge: env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000, // days → ms
 });
 
 // Startup log — verify in Render logs that NODE_ENV is correct
-console.log(`[Auth] NODE_ENV="${env.NODE_ENV}", secure=${env.NODE_ENV === "production"}`);
+console.log(`[Auth] NODE_ENV="${env.NODE_ENV}", secure=${isProduction}, sameSite=${isProduction ? "none" : "lax"}`);
 
 export const getCurrentUser = asyncHandler(async (req, res, next) => {
 
@@ -71,6 +73,7 @@ export const register = asyncHandler(async (req, res, next) => {
         .json({
             success: true,
             message: "User created successfully",
+            token,
             responseData: {
                 newUser,
                 token
@@ -97,6 +100,7 @@ export const login = asyncHandler(async (req, res, next) => {
         .cookie("token", token, getCookieOptions())
         .json({
             success: true,
+            token,
             responseData: {
                 user,
                 token
@@ -105,14 +109,8 @@ export const login = asyncHandler(async (req, res, next) => {
 });
 
 export const logout = asyncHandler(async (req, res, next) => {
-    // clearCookie is the correct Express API for removing cookies
-    // It MUST use the same path and domain options as when the cookie was set
-    res.clearCookie("token", {
-        httpOnly: true,
-        secure: env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: '/',
-    });
+    // clearCookie must match the same options used when setting the cookie
+    res.clearCookie("token", getCookieOptions());
 
     res.status(200).json({
         success: true,

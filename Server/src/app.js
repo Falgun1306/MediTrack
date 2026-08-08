@@ -7,13 +7,13 @@ const app = express();
 
 // Normalize CLIENT_URL: strip trailing slash to match browser's Origin header
 const clientUrl = process.env.CLIENT_URL?.replace(/\/+$/, '');
-const allowedOrigins = [clientUrl, "http://localhost:5173"].filter(Boolean);
+const allowedOrigins = [clientUrl, "http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173"].filter(Boolean);
 
 const corsOptions = {
   origin: (origin, callback) => {
     // Allow requests without an origin (like mobile apps or curl)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
       return callback(null, true);
     }
     console.warn(`CORS blocked origin: "${origin}" | Allowed: ${JSON.stringify(allowedOrigins)}`);
@@ -23,9 +23,9 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: [
-  'Content-Type',
-  'Authorization',
-  'X-Requested-With'
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With'
   ],
 };
 

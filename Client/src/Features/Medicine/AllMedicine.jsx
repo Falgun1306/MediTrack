@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import useMedicineStore from '../../Store/Medicine.store';
 import Header from '../../Components/Header';
 import useUIStore from '../../Store/UI.store';
 import Loader from '../../Components/Loader';
 import useFamilyStore from '../../Store/FamilyMembers.store';
 
-
 const AllMedicine = () => {
     const allMedicines = useMedicineStore(state => state.AllMedicines);
     const activeMedicines = allMedicines.filter(
         (medicine) => medicine.status === 'active'
-    )
+    );
     const members = useFamilyStore(state => state.members);
     const fetchMedicineById = useMedicineStore(state => state.fetchMedicinesByMember);
     const fetchAllMedicines = useMedicineStore(state => state.fetchAllMedicines);
@@ -22,12 +21,12 @@ const AllMedicine = () => {
     const handleFilter = async (memberId) => {
         await fetchMedicineById(memberId);
         setSelectedMemberId(memberId);
-    }
+    };
 
     const handleDefaultFilter = async () => {
         await fetchAllMedicines();
         setSelectedMemberId('all');
-    }
+    };
 
     useEffect(() => {
         fetchAllMedicines();
@@ -35,44 +34,47 @@ const AllMedicine = () => {
     }, []);
 
     return (
-        <div className="page-bg">
+        <div className="page-bg max-w-7xl mx-auto">
             <Header />
 
             {isLoading ? (
                 <Loader />
             ) : (
-                <div className="max-w-6xl mx-auto mt-6 glass-card-static p-4 sm:p-6 animate-fadeIn">
+                <div className="mt-6 glass-card-static p-4 sm:p-6 animate-fadeIn">
 
                     {/* Header Section */}
-                    <div className="flex flex-col gap-4 mb-6">
+                    <div className="flex flex-col gap-4 mb-6 pb-4 border-b border-[#bec8ce]/30">
 
-                        <h2 className="text-lg sm:text-xl font-semibold text-slate-100">
-                            Active Medicines
-                        </h2>
+                        <div>
+                            <h2 className="text-xl font-headline font-bold text-[#111c2d]">
+                                Global Medicines Catalog
+                            </h2>
+                            <p className="text-sm text-[#3f484d] mt-0.5">
+                                Overview of active prescriptions across all family members
+                            </p>
+                        </div>
 
                         {/* Filter Buttons */}
                         <div className="flex gap-2 overflow-x-auto pb-2 scroll-none">
 
                             {/* All Button */}
                             <button
-                                className={`btn-pill whitespace-nowrap ${
-                                    selectedMemberId === "all"
+                                className={`btn-pill whitespace-nowrap ${selectedMemberId === "all"
                                         ? "btn-pill-active"
                                         : "btn-pill-inactive"
-                                }`}
+                                    }`}
                                 onClick={handleDefaultFilter}
                             >
-                                All
+                                All Members
                             </button>
 
                             {members.map((member) => (
                                 <button
                                     key={member._id}
-                                    className={`btn-pill whitespace-nowrap ${
-                                        selectedMemberId === member._id
+                                    className={`btn-pill whitespace-nowrap ${selectedMemberId === member._id
                                             ? "btn-pill-active"
                                             : "btn-pill-inactive"
-                                    }`}
+                                        }`}
                                     onClick={() => handleFilter(member._id)}
                                 >
                                     {member.name}
@@ -84,9 +86,12 @@ const AllMedicine = () => {
 
                     {/* Empty State */}
                     {activeMedicines.length === 0 ? (
-                        <div className="text-center text-slate-400 py-16 animate-fadeIn">
-                            <div className="text-4xl mb-3">💊</div>
-                            <p className="font-medium">No active medicines found.</p>
+                        <div className="text-center text-[#6f787e] py-16 animate-fadeIn">
+                            <div className="w-16 h-16 rounded-full bg-[#f0f3ff] text-[#00607e] flex items-center justify-center mx-auto mb-3">
+                                <span className="material-symbols-outlined text-3xl">medication</span>
+                            </div>
+                            <p className="font-semibold text-[#111c2d]">No active medicines found.</p>
+                            <p className="text-sm text-[#6f787e] mt-1">Select another filter or add new medicines to track.</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
@@ -98,17 +103,22 @@ const AllMedicine = () => {
                                     style={{ animationDelay: `${index * 0.05}s`, opacity: 0 }}
                                 >
                                     {/* Medicine Info */}
-                                    <div className="flex items-start gap-3">
-                                        <span className="badge badge-success mt-0.5">
-                                            {medicine.status}
-                                        </span>
+                                    <div className="flex items-start gap-3.5">
+                                        <div className="w-10 h-10 rounded-xl bg-[#e6f9e7] text-[#006e1c] flex items-center justify-center shrink-0 mt-0.5">
+                                            <span className="material-symbols-outlined text-xl">pill</span>
+                                        </div>
 
                                         <div>
-                                            <p className="font-semibold text-slate-100">
-                                                {medicine.medicineName}
-                                            </p>
-                                            <p className="text-sm text-slate-400 mt-0.5">
-                                                {medicine.remainingStock} {medicine.doseUnit} left
+                                            <div className="flex items-center gap-2">
+                                                <p className="font-bold font-headline text-[#111c2d] text-base">
+                                                    {medicine.medicineName}
+                                                </p>
+                                                <span className="badge badge-success uppercase text-[10px] font-bold tracking-wider">
+                                                    {medicine.status}
+                                                </span>
+                                            </div>
+                                            <p className="text-sm text-[#3f484d] mt-1">
+                                                Remaining Stock: <span className="font-semibold text-[#111c2d]">{medicine.remainingStock} {medicine.doseUnit}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -123,15 +133,6 @@ const AllMedicine = () => {
             )}
         </div>
     );
+};
 
-}
-
-function filterMedicinesByMember(medicines, memberId) {
-    return medicines.filter((medicine) =>
-        medicine.memberId === memberId
-    );
-}
-
-
-
-export default AllMedicine
+export default AllMedicine;

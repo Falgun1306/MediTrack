@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MediTrack - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Rubik:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#eef8ff",
+                      "secondary-container": "#98f994",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "inverse-primary": "#7dd1f8",
+                      "on-tertiary-container": "#fff5ed",
+                      "on-background": "#111c2d",
+                      "surface-dim": "#cfdaf2",
+                      "surface-container-highest": "#d8e3fb",
+                      "on-primary": "#ffffff",
+                      "surface": "#f9f9ff",
+                      "secondary-fixed": "#98f994",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#006e1c",
+                      "on-secondary-fixed": "#002204",
+                      "background": "#f9f9ff",
+                      "on-secondary-fixed-variant": "#005313",
+                      "inverse-surface": "#263143",
+                      "primary-container": "#0d7a9e",
+                      "secondary-fixed-dim": "#7ddc7a",
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#bec8ce",
+                      "primary": "#00607e",
+                      "surface-variant": "#d8e3fb",
+                      "tertiary-container": "#9f6400",
+                      "surface-container-high": "#dee8ff",
+                      "tertiary": "#7d4e00",
+                      "outline": "#6f787e",
+                      "on-surface-variant": "#3f484d",
+                      "surface-tint": "#006686",
+                      "surface-bright": "#f9f9ff",
+                      "on-tertiary-fixed": "#2a1700",
+                      "primary-fixed": "#bfe8ff",
+                      "surface-container-low": "#f0f3ff",
+                      "primary-fixed-dim": "#7dd1f8",
+                      "inverse-on-surface": "#ecf1ff",
+                      "surface-container": "#e7eeff",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#111c2d",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#001f2b",
+                      "on-primary-fixed-variant": "#004d65",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-secondary-container": "#0c7521"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "max-width": "1200px",
+                      "gutter": "16px",
+                      "xl": "40px",
+                      "lg": "24px",
+                      "margin-desktop": "32px",
+                      "base": "8px",
+                      "margin-mobile": "16px",
+                      "sm": "12px",
+                      "md": "16px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Rubik"],
+                      "label-sm": ["Inter"],
+                      "headline-md": ["Rubik"],
+                      "headline-lg-mobile": ["Rubik"],
+                      "headline-lg": ["Rubik"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .custom-shadow-level-1 {
+            box-shadow: 0px 2px 8px rgba(30, 41, 59, 0.05);
+        }
+        .input-transition {
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex text-on-surface font-body-md">
+<!-- Main Container -->
+<main class="flex-1 flex flex-col md:flex-row w-full max-w-[1440px] mx-auto overflow-hidden">
+<!-- Left Side: Image/Branding -->
+<div class="hidden md:flex md:w-1/2 lg:w-3/5 relative bg-primary-container items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/80 to-primary-container z-10 mix-blend-multiply"></div>
+<img alt="Healthcare Background" class="absolute inset-0 w-full h-full object-cover z-0" data-alt="A high-quality, professional photograph of a bright, modern medical clinic setting. Soft natural light streams through large windows, illuminating a clean, organized space with subtle hints of medical blue and wellness green in the decor. The scene is calm, supportive, and implies high-end healthcare management, aligning with a professional medical tracking software aesthetic. No people are in focus, keeping the attention on the clean environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnSXr4Ap2_qoYWpWmhL06YAoQD-K5sbZl3sWJRdl_YqL1ibR9OQoVy0H-D6YP676tfFO_eqZaXF_kseE7w49aA2g59y0DDwvs3uIFrft_itPONLc3Eaz_hESVmlmu_28ux0OJ9zYSJ4lRmiNxTStp2f8u25s8EUeodl2eIq7sfKxa5eHoYGGDGfsqpd_88gMdmoMsk30w0BhTsWvsalFmfPJHRINzGVRtneZ00IODxaYDBjRLxpjW4"/>
+<div class="relative z-20 flex flex-col items-center text-center px-12">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-5xl text-on-primary-container" style="font-variation-settings: 'FILL' 1;">ecg_heart</span>
+<h1 class="font-display-lg text-display-lg text-on-primary-container tracking-tight">MediTrack</h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-primary-container/90 max-w-md">Your family's health and medication schedule, perfectly organized in one supportive place.</p>
+</div>
+</div>
+<!-- Right Side: Login Form -->
+<div class="w-full md:w-1/2 lg:w-2/5 flex items-center justify-center p-6 md:p-12 lg:p-24 bg-surface min-h-screen">
+<div class="w-full max-w-md">
+<!-- Mobile Logo (Hidden on Desktop) -->
+<div class="md:hidden flex items-center justify-center gap-3 mb-10">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'FILL' 1;">ecg_heart</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">MediTrack</h1>
+</div>
+<div class="mb-10 text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Welcome back</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Please enter your details to sign in.</p>
+</div>
+<form class="space-y-6">
+<!-- Email Input -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2" for="email">Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">mail</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-lg bg-surface-container-lowest text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary input-transition custom-shadow-level-1 font-body-md text-body-md" id="email" name="email" placeholder="Enter your email" required="" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2" for="password">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<input class="block w-full pl-10 pr-10 py-3 border border-outline-variant rounded-lg bg-surface-container-lowest text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary input-transition custom-shadow-level-1 font-body-md text-body-md" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+<div class="flex justify-end mt-2">
+<a class="font-label-md text-label-md text-primary hover:text-primary-container transition-colors" href="#">Forgot Password?</a>
+</div>
+</div>
+<!-- Sign In Button -->
+<button class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm font-label-md text-label-md text-on-primary bg-primary hover:bg-primary-container focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors min-h-[48px]" type="submit">
+                        Sign In
+                    </button>
+</form>
+<!-- Sign Up Link -->
+<div class="mt-8 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Don't have an account? 
+                        <a class="font-label-md text-label-md text-primary hover:text-primary-container transition-colors ml-1 font-semibold" href="#">Sign Up</a>
+</p>
+</div>
+</div>
+</div>
+</main>
+</body></html>

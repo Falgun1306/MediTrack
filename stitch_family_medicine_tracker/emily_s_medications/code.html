@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Member Medicines - MediTrack</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Rubik:wght@500;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#eef8ff",
+                      "secondary-container": "#98f994",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "inverse-primary": "#7dd1f8",
+                      "on-tertiary-container": "#fff5ed",
+                      "on-background": "#111c2d",
+                      "surface-dim": "#cfdaf2",
+                      "surface-container-highest": "#d8e3fb",
+                      "on-primary": "#ffffff",
+                      "surface": "#f9f9ff",
+                      "secondary-fixed": "#98f994",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#006e1c",
+                      "on-secondary-fixed": "#002204",
+                      "background": "#f9f9ff",
+                      "on-secondary-fixed-variant": "#005313",
+                      "inverse-surface": "#263143",
+                      "primary-container": "#0d7a9e",
+                      "secondary-fixed-dim": "#7ddc7a",
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#bec8ce",
+                      "primary": "#00607e",
+                      "surface-variant": "#d8e3fb",
+                      "tertiary-container": "#9f6400",
+                      "surface-container-high": "#dee8ff",
+                      "tertiary": "#7d4e00",
+                      "outline": "#6f787e",
+                      "on-surface-variant": "#3f484d",
+                      "surface-tint": "#006686",
+                      "surface-bright": "#f9f9ff",
+                      "on-tertiary-fixed": "#2a1700",
+                      "primary-fixed": "#bfe8ff",
+                      "surface-container-low": "#f0f3ff",
+                      "primary-fixed-dim": "#7dd1f8",
+                      "inverse-on-surface": "#ecf1ff",
+                      "surface-container": "#e7eeff",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#111c2d",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#001f2b",
+                      "on-primary-fixed-variant": "#004d65",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-secondary-container": "#0c7521"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "max-width": "1200px",
+                      "gutter": "16px",
+                      "xl": "40px",
+                      "lg": "24px",
+                      "margin-desktop": "32px",
+                      "base": "8px",
+                      "margin-mobile": "16px",
+                      "sm": "12px",
+                      "md": "16px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Rubik"],
+                      "label-sm": ["Inter"],
+                      "headline-md": ["Rubik"],
+                      "headline-lg-mobile": ["Rubik"],
+                      "headline-lg": ["Rubik"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface h-full flex font-body-md">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-full py-lg px-md gap-base bg-surface-container-low docked h-screen left-0 w-64 flat no shadows z-40 border-r border-outline-variant/30 flex-shrink-0">
+<div class="flex items-center gap-sm mb-lg px-md">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span class="font-headline-md text-headline-md font-extrabold text-primary">MediTrack</span>
+</div>
+<div class="flex items-center gap-sm px-md mb-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border-2 border-surface flex-shrink-0">
+<img alt="Family member profile" class="w-full h-full object-cover" data-alt="A small, circular avatar portrait of a modern family, depicted in a clean, minimalist vector illustration style. The colors are soft medical blues and wellness greens on a bright white background, conveying trust and warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6_Cn45T_K7TwEo0ozZSo6MKmAKenTWobvbkvserPKLlIwqKYSPQG9XAmaSRF22-98WxrxDBTknFEIfoSrIw72v6ENp-mypMbvzL_3IREv4AfM4pVQULQzZkY92Z-g1NLTlh61G86ZpNiNYkcWXY7W2BcH-KIU8R51Dof0opGdDBqHWkQJDIxhH3H9C8xRLRBe9iGTx_xyWEoaTGHrjEIjU2SH-hT71dxTo8YAgqrneX8nGoWVrUJX"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-sm text-on-surface">Family Health</h3>
+<p class="font-label-md text-label-md text-xs text-on-surface-variant">Managing 4 members</p>
+</div>
+</div>
+<div class="flex flex-col gap-xs flex-grow">
+<!-- Inactive -->
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="family_restroom">family_restroom</span>
+<span class="font-label-md text-label-md">Family</span>
+</a>
+<!-- Active -->
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="medication" style="font-variation-settings: 'FILL' 1;">medication</span>
+<span class="font-label-md text-label-md">Medicines</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label-md text-label-md">Notifications</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-xs pt-md border-t border-outline-variant/30">
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-grow flex flex-col h-full overflow-hidden relative">
+<!-- TopAppBar (Mobile & Desktop Contexts) -->
+<header class="fixed md:absolute top-0 w-full z-30 flex justify-between items-center px-lg h-16 mx-auto bg-surface shadow-sm docked full-width">
+<div class="flex items-center gap-sm md:hidden">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">MediTrack</span>
+</div>
+<div class="hidden md:flex items-center gap-sm text-on-surface-variant">
+<h1 class="font-headline-md text-headline-md text-on-surface">Member Profile</h1>
+</div>
+<div class="flex items-center gap-sm ml-auto">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200 active:scale-95 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors duration-200 active:scale-95 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<main class="flex-grow overflow-y-auto pt-20 md:pt-24 pb-24 md:pb-lg px-margin-mobile md:px-margin-desktop w-full max-w-max-width mx-auto">
+<!-- Member Header Profile -->
+<div class="flex flex-col md:flex-row items-center md:items-start gap-lg mb-xl bg-surface-container-lowest p-lg rounded-xl border border-surface-variant shadow-[0px_2px_8px_rgba(30,41,59,0.05)] relative overflow-hidden">
+<!-- Decorative background blob -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-primary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="w-24 h-24 rounded-full bg-surface-variant border-4 border-surface-container-highest flex-shrink-0 relative overflow-hidden z-10">
+<img class="w-full h-full object-cover" data-alt="A portrait photo of a smiling young girl with bright, warm lighting, representing a daughter. The image is framed in a clean, modern circle against a crisp white background, suitable for a healthcare app profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQUXRkic-sSPFxhWPw71gniXEHVAvErqCTU2Ei1MKFlPQh0sMRxtqvTwpcrt3bhEha8ob7LOPBRwEr93c3yXGZMOhuMGnmF_9d-LOCRLHf5bi_Hra3FWR0bTjdSJMpoyo4x4buRumAwuLki5QaRPbq-IiZ-ViFhRLFfB09YaKGvD1G83FFJi8mDu9zgUfVORp9TPOiNHg6rKPorc77bL2JbajZ1-SVkpbQtuQAtSWX-ew0H1cKK-dR"/>
+</div>
+<div class="flex-grow text-center md:text-left z-10">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-sm mb-xs">
+<h2 class="font-display-lg text-display-lg text-on-surface md:text-3xl">Emily <span class="text-on-surface-variant font-headline-md text-headline-md">(Daughter)</span></h2>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container/20 text-on-secondary-container font-label-md text-label-md border border-secondary-container/30">
+<span class="w-2 h-2 rounded-full bg-secondary mr-2"></span> Active Patient
+                        </span>
+</div>
+<div class="flex flex-wrap justify-center md:justify-start gap-x-md gap-y-sm mt-sm">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span class="font-body-md text-body-md text-sm">Age: 8</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">monitor_weight</span>
+<span class="font-body-md text-body-md text-sm">Weight: 24 kg</span>
+</div>
+<div class="flex items-center gap-xs text-error">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span class="font-body-md text-body-md text-sm">Allergies: Penicillin</span>
+</div>
+</div>
+</div>
+<div class="z-10 mt-sm md:mt-0">
+<button class="w-full md:w-auto flex items-center justify-center gap-sm bg-primary text-on-primary font-label-md text-label-md px-md py-sm rounded-lg hover:bg-primary-fixed-variant transition-colors min-h-[48px] shadow-sm">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        Add Medication
+                    </button>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-outline-variant mb-lg">
+<button class="px-md py-sm border-b-2 border-primary text-primary font-label-md text-label-md font-bold mb-[-1px]">
+                    Active Medicines
+                </button>
+<button class="px-md py-sm border-b-2 border-transparent text-on-surface-variant font-label-md text-label-md hover:text-on-surface mb-[-1px]">
+                    Past Medicines
+                </button>
+</div>
+<!-- Medication List Grid (Bento style) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Med Card 1 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-lg shadow-[0px_2px_8px_rgba(30,41,59,0.05)] hover:shadow-[0px_4px_12px_rgba(30,41,59,0.08)] transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">pill</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Multivitamin Gummies</h3>
+<p class="font-body-md text-body-md text-sm text-on-surface-variant">Supplement</p>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md bg-surface p-sm rounded-lg border border-surface-variant">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs uppercase tracking-wider text-[10px]">Dosage</p>
+<p class="font-body-md text-body-md font-medium">1 Gummy</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs uppercase tracking-wider text-[10px]">Frequency</p>
+<p class="font-body-md text-body-md font-medium">Once daily</p>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/30 pt-sm mt-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">schedule</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Next Dose</p>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Today, 8:00 AM</p>
+</div>
+</div>
+<button class="text-primary font-label-md text-label-md border border-primary px-sm py-xs rounded-lg hover:bg-primary-container/10 transition-colors min-h-[40px]">
+                            Log Dose
+                        </button>
+</div>
+</div>
+<!-- Med Card 2 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-lg shadow-[0px_2px_8px_rgba(30,41,59,0.05)] hover:shadow-[0px_4px_12px_rgba(30,41,59,0.08)] transition-shadow relative overflow-hidden">
+<!-- Accent line for important meds -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-container"></div>
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">vaccines</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Zyrtec (Cetirizine)</h3>
+<p class="font-body-md text-body-md text-sm text-on-surface-variant">Allergy Meds</p>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md bg-surface p-sm rounded-lg border border-surface-variant">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs uppercase tracking-wider text-[10px]">Dosage</p>
+<p class="font-body-md text-body-md font-medium">5ml</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-xs uppercase tracking-wider text-[10px]">Frequency</p>
+<p class="font-body-md text-body-md font-medium">As needed</p>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-outline-variant/30 pt-sm mt-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline text-[20px]">history</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Last Taken</p>
+<p class="font-label-md text-label-md text-on-surface">Yesterday</p>
+</div>
+</div>
+<button class="text-primary font-label-md text-label-md bg-primary-container text-on-primary-container px-sm py-xs rounded-lg hover:bg-primary-container/80 transition-colors min-h-[40px]">
+                            Log Dose Now
+                        </button>
+</div>
+</div>
+<!-- Empty State Example (if needed for visual balance, or just leave as 2 cards) -->
+<div class="bg-surface-container-low border border-dashed border-outline-variant rounded-xl p-lg flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition-opacity min-h-[200px] cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-outline mb-sm">add_circle</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Prescribe New</h3>
+<p class="font-body-md text-body-md text-sm text-on-surface-variant">Add another active medication for Emily.</p>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-md py-sm pb-safe bg-surface shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-90 transition-transform p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm-mobile text-label-sm-mobile text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm-mobile text-label-sm-mobile text-[10px] mt-1">Family</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-90 transition-transform p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="pill">pill</span>
+<span class="font-label-sm-mobile text-label-sm-mobile text-[10px] mt-1">Meds</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-90 transition-transform p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label-sm-mobile text-label-sm-mobile text-[10px] mt-1">Alerts</span>
+</a>
+</nav>
+</body></html>

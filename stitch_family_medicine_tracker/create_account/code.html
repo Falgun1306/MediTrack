@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MediTrack - Create Account</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Rubik:wght@500;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#eef8ff",
+                        "secondary-container": "#98f994",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-primary": "#7dd1f8",
+                        "on-tertiary-container": "#fff5ed",
+                        "on-background": "#111c2d",
+                        "surface-dim": "#cfdaf2",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-primary": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed": "#98f994",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#006e1c",
+                        "on-secondary-fixed": "#002204",
+                        "background": "#f9f9ff",
+                        "on-secondary-fixed-variant": "#005313",
+                        "inverse-surface": "#263143",
+                        "primary-container": "#0d7a9e",
+                        "secondary-fixed-dim": "#7ddc7a",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#bec8ce",
+                        "primary": "#00607e",
+                        "surface-variant": "#d8e3fb",
+                        "tertiary-container": "#9f6400",
+                        "surface-container-high": "#dee8ff",
+                        "tertiary": "#7d4e00",
+                        "outline": "#6f787e",
+                        "on-surface-variant": "#3f484d",
+                        "surface-tint": "#006686",
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary-fixed": "#bfe8ff",
+                        "surface-container-low": "#f0f3ff",
+                        "primary-fixed-dim": "#7dd1f8",
+                        "inverse-on-surface": "#ecf1ff",
+                        "surface-container": "#e7eeff",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#111c2d",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#001f2b",
+                        "on-primary-fixed-variant": "#004d65",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-secondary-container": "#0c7521"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "max-width": "1200px",
+                        "gutter": "16px",
+                        "xl": "40px",
+                        "lg": "24px",
+                        "margin-desktop": "32px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Rubik"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Rubik"],
+                        "headline-lg-mobile": ["Rubik"],
+                        "headline-lg": ["Rubik"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-container-low text-on-surface min-h-screen flex items-center justify-center font-body-md p-margin-mobile md:p-margin-desktop">
+<main class="w-full max-w-md bg-surface rounded-xl shadow-[0px_10px_25px_rgba(30,41,59,0.1)] border border-outline-variant p-lg md:p-xl relative overflow-hidden">
+<!-- Decorative Header Elements -->
+<div class="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container rounded-full blur-3xl opacity-20"></div>
+<div class="text-center mb-xl relative z-10">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary mb-xs">MediTrack</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Create Your Family Health Tracker</p>
+</div>
+<form class="space-y-md relative z-10">
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface" for="fullName">Full Name</label>
+<div class="relative">
+<span aria-hidden="true" class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="person" data-weight="regular">person</span>
+<input class="w-full pl-xl pr-md py-sm bg-surface border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-body-md text-on-surface placeholder:text-outline-variant" id="fullName" name="fullName" placeholder="John Doe" required="" type="text"/>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface" for="email">Email Address</label>
+<div class="relative">
+<span aria-hidden="true" class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="mail" data-weight="regular">mail</span>
+<input class="w-full pl-xl pr-md py-sm bg-surface border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-body-md text-on-surface placeholder:text-outline-variant" id="email" name="email" placeholder="john@example.com" required="" type="email"/>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+<div class="relative">
+<span aria-hidden="true" class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="lock" data-weight="regular">lock</span>
+<input class="w-full pl-xl pr-md py-sm bg-surface border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-body-md text-on-surface placeholder:text-outline-variant" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="block font-label-md text-label-md text-on-surface" for="confirmPassword">Confirm Password</label>
+<div class="relative">
+<span aria-hidden="true" class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="lock_reset" data-weight="regular">lock_reset</span>
+<input class="w-full pl-xl pr-md py-sm bg-surface border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors font-body-md text-body-md text-on-surface placeholder:text-outline-variant" id="confirmPassword" name="confirmPassword" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<div class="flex items-start gap-sm pt-xs">
+<div class="flex items-center h-6">
+<input class="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary focus:ring-2" id="terms" name="terms" required="" type="checkbox"/>
+</div>
+<label class="font-body-md text-body-md text-on-surface-variant text-sm" for="terms">
+                    I agree to the <a class="text-primary hover:underline font-medium" href="#">Terms and Conditions</a> and <a class="text-primary hover:underline font-medium" href="#">Privacy Policy</a>.
+                </label>
+</div>
+<div class="pt-sm">
+<button class="w-full flex items-center justify-center gap-sm bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md font-medium h-12 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" type="submit">
+                    Create Account
+                    <span aria-hidden="true" class="material-symbols-outlined text-[20px]" data-icon="arrow_forward" data-weight="regular">arrow_forward</span>
+</button>
+</div>
+</form>
+<div class="mt-lg text-center relative z-10 border-t border-outline-variant pt-lg">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Already have an account? <a class="text-primary font-medium hover:underline" href="#">Log In</a>
+</p>
+</div>
+</main>
+</body></html>

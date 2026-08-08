@@ -54,7 +54,10 @@ const EditMember = ({ member, setshowEditMember }) => {
     return (
         <div className="modal-overlay">
 
-            <div className="modal-content animate-fadeInScale">
+            <div className="modal-content animate-fadeInScale overflow-hidden pt-7">
+
+                {/* Top Accent Line */}
+                <div className="absolute top-0 left-0 w-full h-2 bg-[#00607e]"></div>
 
                 {/* Close Button */}
                 <button
@@ -65,33 +68,33 @@ const EditMember = ({ member, setshowEditMember }) => {
                 </button>
 
                 {/* Title */}
-                <h2 className="text-2xl font-bold text-center text-slate-100 mb-8">
+                <h2 className="text-xl font-bold font-headline text-center text-[#111c2d] mb-6">
                     Update Family Member
                 </h2>
 
-                <form onSubmit={handleUpdate} className="space-y-5">
+                <form onSubmit={handleUpdate} className="space-y-4">
 
                     {/* Name */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-400 mb-2">Name</label>
+                        <label className="block text-xs font-semibold text-[#3f484d] mb-1.5 uppercase tracking-wider">Name</label>
                         <input
                             type="text"
                             name="name"
                             placeholder="Enter name"
                             value={memberData.name}
                             onChange={handleInputChange}
-                            className="input-dark"
+                            className="input-stitch"
                         />
                     </div>
 
                     {/* Relation */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-400 mb-2">Relation</label>
+                        <label className="block text-xs font-semibold text-[#3f484d] mb-1.5 uppercase tracking-wider">Relation</label>
                         <select
                             name="relation"
                             value={memberData.relation}
                             onChange={handleInputChange}
-                            className="input-dark"
+                            className="input-stitch"
                         >
                             <option value="self">Self</option>
                             <option value="father">Father</option>
@@ -105,14 +108,14 @@ const EditMember = ({ member, setshowEditMember }) => {
 
                     {/* Age */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-400 mb-2">Age</label>
+                        <label className="block text-xs font-semibold text-[#3f484d] mb-1.5 uppercase tracking-wider">Age</label>
                         <input
                             type="number"
                             name="age"
                             placeholder="Enter age"
                             value={memberData.age}
                             onChange={handleInputChange}
-                            className="input-dark"
+                            className="input-stitch"
                         />
                     </div>
 
@@ -120,7 +123,7 @@ const EditMember = ({ member, setshowEditMember }) => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="btn-primary w-full py-3 rounded-xl text-sm tracking-wide disabled:opacity-60"
+                        className="btn-primary w-full py-3 rounded-xl text-sm font-semibold tracking-wide disabled:opacity-60 mt-2"
                     >
                         {loading ? "Updating..." : "Update Member"}
                     </button>
@@ -129,7 +132,6 @@ const EditMember = ({ member, setshowEditMember }) => {
             </div>
         </div>
     );
-
 };
 
 export default EditMember;

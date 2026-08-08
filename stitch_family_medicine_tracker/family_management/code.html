@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Family Management - MediTrack</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Rubik:wght@500;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#eef8ff",
+                        "secondary-container": "#98f994",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-primary": "#7dd1f8",
+                        "on-tertiary-container": "#fff5ed",
+                        "on-background": "#111c2d",
+                        "surface-dim": "#cfdaf2",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-primary": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed": "#98f994",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#006e1c",
+                        "on-secondary-fixed": "#002204",
+                        "background": "#f9f9ff",
+                        "on-secondary-fixed-variant": "#005313",
+                        "inverse-surface": "#263143",
+                        "primary-container": "#0d7a9e",
+                        "secondary-fixed-dim": "#7ddc7a",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#bec8ce",
+                        "primary": "#00607e",
+                        "surface-variant": "#d8e3fb",
+                        "tertiary-container": "#9f6400",
+                        "surface-container-high": "#dee8ff",
+                        "tertiary": "#7d4e00",
+                        "outline": "#6f787e",
+                        "on-surface-variant": "#3f484d",
+                        "surface-tint": "#006686",
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary-fixed": "#bfe8ff",
+                        "surface-container-low": "#f0f3ff",
+                        "primary-fixed-dim": "#7dd1f8",
+                        "inverse-on-surface": "#ecf1ff",
+                        "surface-container": "#e7eeff",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#111c2d",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#001f2b",
+                        "on-primary-fixed-variant": "#004d65",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-secondary-container": "#0c7521"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "max-width": "1200px",
+                        "gutter": "16px",
+                        "xl": "40px",
+                        "lg": "24px",
+                        "margin-desktop": "32px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Rubik"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Rubik"],
+                        "headline-lg-mobile": ["Rubik"],
+                        "headline-lg": ["Rubik"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }]
+                    },
+                    "boxShadow": {
+                        'level-1': '0px 2px 8px rgba(30, 41, 59, 0.05)',
+                        'level-2': '0px 10px 25px rgba(30, 41, 59, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-surface');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-outline {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-screen py-lg px-md gap-base bg-surface-container-low dark:bg-surface-container docked left-0 w-64 fixed z-40 border-r border-[#E2E8F0] shadow-sm">
+<!-- Brand / Header -->
+<div class="mb-xl flex items-center gap-sm px-sm">
+<span class="material-symbols-outlined text-primary text-3xl">ecg_heart</span>
+<span class="font-headline-md text-headline-md font-extrabold text-primary">MediTrack</span>
+</div>
+<!-- Header Profile Info -->
+<div class="flex items-center gap-md px-sm mb-lg">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container shrink-0">
+<img alt="Family member profile" class="w-full h-full object-cover" data-alt="A small, soft-lit profile portrait of a middle-aged parent with a warm smile, set against a clean white background, reflecting a reliable and caring persona for a modern health app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFYUqffg5NY8a1Syud5lMcbz4_GApIUkyDtiRSFsXlEeoABKyGb2NhBBxeIxdmIs7dAKLNB_my7gTQfjznzqRTAzJf7UDf0g-VB301qDzxcpkVa7rCIkV2j6XakOWW80gOiEirbMwkX8rM7I-EETaJBQDNRUI3IFSDujagGA1vR2V0nlvZ4agUIF9PHe3uWzPlLAghnao4bKu5l4mUJMwEnEc86TxyJUcWbsaxGRq3FbSKfg1TVT8L"/>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface leading-tight text-sm">Family Health</span>
+<span class="font-label-md text-label-md text-on-surface-variant text-xs">Managing 4 members</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined icon-outline">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm hover:bg-surface-container-high transition-all active:opacity-80 font-bold border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined">family_restroom</span>
+<span class="font-label-md text-label-md">Family</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined icon-outline">medication</span>
+<span class="font-label-md text-label-md">Medicines</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined icon-outline">notifications</span>
+<span class="font-label-md text-label-md">Notifications</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined icon-outline">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto mb-md">
+<button class="w-full flex items-center justify-center gap-sm bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg hover:bg-surface-tint transition-colors active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                Add Medication
+            </button>
+</div>
+<!-- Footer Links -->
+<div class="flex flex-col gap-xs pt-md border-t border-outline-variant/30">
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined icon-outline">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant px-md py-sm rounded-lg hover:bg-surface-container-high transition-all active:opacity-80" href="#">
+<span class="material-symbols-outlined icon-outline">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 relative min-h-screen">
+<!-- TopAppBar (Mobile & Web Context) -->
+<header class="md:hidden fixed top-0 w-full z-50 flex justify-between items-center px-lg h-16 max-w-max-width mx-auto shadow-sm bg-surface dark:bg-background transition-transform">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">ecg_heart</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">MediTrack</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors duration-200 active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors duration-200 active:scale-95">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Canvas / Main View -->
+<main class="flex-1 pt-20 md:pt-8 pb-24 md:pb-8 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto w-full">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-xl gap-4">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-background mb-2">Family Profiles</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Manage members, view relationships, and track active medication schedules.</p>
+</div>
+<button class="hidden md:flex items-center gap-2 bg-primary text-on-primary font-label-md text-label-md py-3 px-6 rounded-lg hover:bg-surface-tint transition-colors active:scale-95 h-12 shrink-0 shadow-level-1">
+<span class="material-symbols-outlined">person_add</span>
+                    Add Family Member
+                </button>
+</div>
+<!-- Bento Grid / Cards Container -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Card: John (Primary User) -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-level-1 border border-[#E2E8F0] flex flex-col relative overflow-hidden group hover:shadow-level-2 transition-shadow duration-300">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex items-start justify-between mb-6">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-surface-variant shrink-0">
+<img alt="John" class="w-full h-full object-cover" data-alt="A portrait of a middle-aged man with short hair and a kind expression, softly lit against a clean white background, suitable for a professional yet warm health app profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjFgRpFhBjWc0lZ-LAnMm2mKAYTyVesiy1vNGgsUw050YLUvKeK0B8voXS3RfjeW_DE4azZmVvA6-XAu4xSMvQRwxJoAym7pzWJ2TgW2LlWyL-hct-bCtNTZEQEnhNwBMZpWH3XXP4U4JVtwaPoeHSX5_iao2EE7hLVVbgD6ne4c1rg-ikDZg0_jfYLXq9w3FWNYNaERgJkWudY0zkcitP0hhcNLO_Y_cb_D3yHsjY3Hj7oLplpwmO"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">John</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-primary-container/20 text-primary-container">Self</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">42 yrs</span>
+</div>
+</div>
+</div>
+<button aria-label="Edit John" class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+<div class="mt-auto bg-surface-container-low rounded-lg p-4 flex items-center justify-between border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-sm">pill</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Active Meds</span>
+</div>
+<span class="font-headline-md text-headline-md text-secondary font-bold">2</span>
+</div>
+</div>
+<!-- Card: Sarah -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-level-1 border border-[#E2E8F0] flex flex-col relative overflow-hidden group hover:shadow-level-2 transition-shadow duration-300">
+<div class="flex items-start justify-between mb-6">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-surface-variant shrink-0">
+<img alt="Sarah" class="w-full h-full object-cover" data-alt="A portrait of an adult woman with long wavy hair smiling warmly, soft studio lighting on a pristine white background, conveying a nurturing and healthy persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClaXiH6-uGdml0IZXWqe83X0OxFMxlPGbsAVceGQp4dW7nbkmR7WL_a0NQ6ZPge99hvyYQirdJLRRx3cNyijwSLdiQGcpnDSM3kwR0sCmiX1Hd6OTK3Uai0IkDYMHAbwoTTpS1GVcaar1oogn1wU338rb-ISX5GwUxQeFwuMMXVsxmicQIA6Na6uj1mYJ1P6hG08jl0D7DmL3lx429W_2NA13C_0I7QpOIxS92j1uKWYDh5qVUuG1i"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Sarah</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary-container">Spouse</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">40 yrs</span>
+</div>
+</div>
+</div>
+<button aria-label="Edit Sarah" class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+<div class="mt-auto bg-surface-container-low rounded-lg p-4 flex items-center justify-between border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-sm">pill</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Active Meds</span>
+</div>
+<span class="font-headline-md text-headline-md text-secondary font-bold">1</span>
+</div>
+</div>
+<!-- Card: Emily -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-level-1 border border-[#E2E8F0] flex flex-col relative overflow-hidden group hover:shadow-level-2 transition-shadow duration-300">
+<div class="flex items-start justify-between mb-6">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-surface-variant shrink-0">
+<img alt="Emily" class="w-full h-full object-cover" data-alt="A portrait of a young girl, about 10 years old, with a bright smile, soft natural lighting on a clean white background, portraying an energetic and healthy child." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ2Mn8-RfQmIP6Ja6uFjTO3iDo_RlLE7sPGB2kCBnWUzQWSYdQJ8jbpCECjzTJABFDLZNtysbnV-Di1gghfYaHYRGj8HtjdgXHXO5qvSK522ebLJbJ9udRGQSig-NwimDT9eUe7jXaSfAPNxId_QDw_BsbnyAwsvBfQukYnTNJHR6JZmawnA_BfC5p079umHVF2Wm8jmS3GBhLLjRghOo_X1SKdUhxKaJeSw8t2Ag7ZybD9CuybHtx"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Emily</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">Child</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">10 yrs</span>
+</div>
+</div>
+</div>
+<button aria-label="Edit Emily" class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+<div class="mt-auto bg-surface-container-low rounded-lg p-4 flex items-center justify-between border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-outline-variant/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline text-sm">pill_off</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Active Meds</span>
+</div>
+<span class="font-headline-md text-headline-md text-outline font-medium">0</span>
+</div>
+</div>
+<!-- Card: Alex -->
+<div class="bg-surface-container-lowest rounded-xl p-lg shadow-level-1 border border-[#E2E8F0] flex flex-col relative overflow-hidden group hover:shadow-level-2 transition-shadow duration-300">
+<div class="flex items-start justify-between mb-6">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-surface-variant shrink-0">
+<img alt="Alex" class="w-full h-full object-cover" data-alt="A portrait of an elderly man with glasses, smiling gently, soft warm lighting against a bright white background, conveying wisdom and a need for reliable health management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfXgv5bYIK5L94KRvamRO7yX8luD0rA8LYcqT2TYFheuLzvECqbR93R5BMDYh4Bu-1bUSsmLK2tEi6FdoVic9soANVms0KEN8h1uedJQPbMscsZAUsxPxiavAP3cY5ieQbVQYvLtoihd350T-yg6zm64c9zMuFxeypasyh4UmCva9d-q_kI6qI5jNdUGUebyywRAZXfE9b4gf7NVdvckieR5cY97SqewA_WUBNeMtIhiwC4sf5Ch-G"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Alex</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-error-container/30 text-on-error-container">Parent</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">72 yrs</span>
+</div>
+</div>
+</div>
+<button aria-label="Edit Alex" class="text-outline hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+<div class="mt-auto bg-surface-container-low rounded-lg p-4 flex items-center justify-between border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-sm">pill</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Active Meds</span>
+</div>
+<span class="font-headline-md text-headline-md text-secondary font-bold">5</span>
+</div>
+</div>
+<!-- Ghost Card: Add Member (Mobile Fallback / Grid integration) -->
+<button class="md:hidden border-2 border-dashed border-primary/30 rounded-xl p-lg flex flex-col items-center justify-center text-primary hover:bg-primary-container/10 transition-colors h-[220px] active:scale-[0.98]">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-3xl">person_add</span>
+</div>
+<span class="font-headline-md text-headline-md">Add Member</span>
+</button>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Context) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-md py-sm pb-safe shadow-lg bg-surface dark:bg-background rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-90 transition-transform p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined icon-outline">home</span>
+<span class="font-label-sm-mobile text-label-sm-mobile mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm-mobile text-label-sm-mobile mt-1">Family</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-90 transition-transform p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined icon-outline">pill</span>
+<span class="font-label-sm-mobile text-label-sm-mobile mt-1">Meds</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-90 transition-transform p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined icon-outline">notifications</span>
+<span class="font-label-sm-mobile text-label-sm-mobile mt-1">Alerts</span>
+</a>
+</nav>
+</body></html>
